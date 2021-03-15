@@ -35,9 +35,14 @@ operación solicitada
 """
 
 def printMenu():
+    pdef printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Encontrar buenos videos por categoría y país")
+    print("3- Encontrar video tendencia por país")
+    print("4- Encontrar video tendencia por categoría")
+    print("5- Buscar los videos con más Likes")
+    print("0- Salir")
 
 catalog = None
 
