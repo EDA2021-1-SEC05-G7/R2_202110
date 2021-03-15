@@ -1,5 +1,9 @@
 #ISIS1225 - Librerias de soporte
 
+Estudiante 1 (Req. ): Ernesto José Duarte Mantilla e.duartem@uniandes.edu.co 202014279
+
+Estudiante 2 (Req. ): Ana Sofía Padilla Daza a.padillad@uniandes.edu.co 202021748
+
 Este proyecto contiene los Tipos abstractos de datos, estructuras de datos y algoritmos requeridos por el curso ISIS1225-Estructuras de Datos y Algoritmos
 
 -Lib
