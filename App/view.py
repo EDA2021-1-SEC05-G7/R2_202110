@@ -26,6 +26,8 @@ import controller
 from DISClib.ADT import list as lt
 assert cf
 
+default_limit = 1000 
+sys.setrecursionlimit(default_limit*10)
 
 """
 La vista se encarga de la interacción con el usuario
@@ -34,8 +36,10 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+def loadData(catalog):
+    controller.loadData(catalog)
+
 def printMenu():
-    pdef printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
     print("2- Encontrar buenos videos por categoría y país")
@@ -51,13 +55,53 @@ Menu principal
 """
 while True:
     printMenu()
-    inputs = input('Seleccione una opción para continuar\n')
+    inputs = input('Seleccione una opción para continuar\n(recuerde que antes de escoger cualquier opción tiene que cargar primero la información del catálogo)\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
+        catalog = controller.initCatalog()
+        loadData(catalog)
+        print("Cargando información de los archivos... Esto puede tardar un poco.")
+        if catalog == None:
+            print("No ha seleccionado una opcion valida")
+        else:
+            print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
+            
 
     elif int(inputs[0]) == 2:
-        pass
+        print ("Encontrar buenos videos por categoría y país")
+        """#size = int(input("¿De que tamaño quiere la lista?: "))
+        #name = input("¿De que categoría desea saber los videos?: ")
+        #country = input("¿De que pais desea saber los videos?: ")
+        #if size > lt.size(catalog['ListCompleteVidAll']):
+            print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")
+        else:
+            resul = controller.req1(catalog,name,country,size)
+            print(resul)"""
+        
+            
+    elif int(inputs[0]) == 3:
+        print ("Encontrar video tendencia por país")
+        """country = input("Ingrese el nombre del país del cual quiere saber el video que más fue tendencia: ")
+        print(controller.req2(catalog, country))"""
+        
 
+    elif int(inputs[0]) == 4:
+        print('Encontrar videos tendencias por categoría')
+        """category = input("Ingrese la categoria de la cual quiera saber el video que más fue tendencia: ")
+        print(controller.req3(catalog,category))"""
+
+
+    elif int(inputs[0]) == 5:
+        print('Buscar los videos con mas likes de un pais y con un tag determinados')
+        """country = input("Ingrese el pais del cual  quiera conocer los videos con mas likes: ")
+        tag = input("Ingrese el tag del cual quiera saber los videos: ")
+        size = int(input("Ingrese la cantidad de videos que quiera conocer: "))
+        result = controller.req4(catalog,tag,country,size)
+        if result == 0:
+            print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")
+        else:
+            print(result)"""
     else:
         sys.exit(0)
+        
 sys.exit(0)
+

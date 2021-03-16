@@ -39,12 +39,71 @@ los mismos.
 
 # Construccion de modelos
 
+def newCatalog():
+    catalog = {'ListCompleteVidAll': None,
+               'categories': None}
+
+    catalog['ListCompleteVidAll'] = lt.newList("ARRAY_LIST")
+    catalog['categories'] = mp.newMap(numelements=44,
+                                    maptype="CHAINING",
+                                    loadfactor=4.0)
+    catalog["videos-cat"] = mp.newMap(numelements=50000,
+                                    maptype="PROBING",
+                                    loadfactor=0.5)
+    
+    return catalog
+
+
+
 # Funciones para agregar informacion al catalogo
 
+
+def addVideo(catalog, video):
+    lt.addLast(catalog['ListCompleteVidAll'], video)
+    addCatVid(catalog,video)
+
+def addCat(catalog, cat):
+    mp.put(catalog["categories"],cat["name"],cat["id"])
+    
+
+
+
 # Funciones para creacion de datos
+
+def newVidCat(ids):
+    entry = {'cat': "", "videos": None}
+    entry['cat'] = ids
+    entry['videos'] = lt.newList('SINGLE_LINKED')
+    return entry
+def addCatVid(catalog,video):
+    cats = catalog["videos-cat"]
+    category = video["category_id"]
+    existcat = mp.contains(cats,category)
+    contadorif = 0
+    contadorelse = 0
+    if existcat:
+        contadorif += 1
+        print("if",contadorif)
+        entry = mp.get(cats,category)
+        cat = me.getValue(entry)
+    else:
+        contadorelse
+        print("else",contadorelse)
+        cat = newVidCat(category)
+        mp.put(cats,category,cat)
+    lt.addLast(cat["videos"],video)
+
 
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+
+def compareId(id1,id2):
+    if (id1 == id2):
+        return 0
+    elif id1 > id2:
+        return 1
+    else:
+        return -1
 
 # Funciones de ordenamiento
