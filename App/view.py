@@ -42,6 +42,7 @@ def loadData(catalog):
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
+    print("6- Encontrar buenos videos por categoría")
     print("2- Encontrar buenos videos por categoría y país")
     print("3- Encontrar video tendencia por país")
     print("4- Encontrar video tendencia por categoría")
@@ -100,6 +101,14 @@ while True:
             print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")
         else:
             print(result)"""
+
+    elif int(inputs[0]) == 6:
+        print('Buscar los videos con mas likes de una categoría')
+        name = input("Escriba el nombre de la categoría de la cual quiere conocer los videos: ")
+        size = int(input("Escriba cuantos videos quiere conocer: "))
+        print(controller.reqLab(catalog, name, size))
+        
+    
     else:
         sys.exit(0)
         

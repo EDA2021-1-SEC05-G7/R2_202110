@@ -30,6 +30,8 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import mergesort as mgs
+
 assert cf
 
 """
@@ -41,7 +43,8 @@ los mismos.
 
 def newCatalog():
     catalog = {'ListCompleteVidAll': None,
-               'categories': None}
+               'categories': None,
+               'videos-cat': None}
 
     catalog['ListCompleteVidAll'] = lt.newList("ARRAY_LIST")
     catalog['categories'] = mp.newMap(numelements=44,
@@ -63,7 +66,7 @@ def addVideo(catalog, video):
     addCatVid(catalog,video)
 
 def addCat(catalog, cat):
-    mp.put(catalog["categories"],cat["name"],cat["id"])
+    mp.put(catalog["categories"],cat["name"].strip(), cat["id"].strip())
     
 
 
@@ -75,6 +78,7 @@ def newVidCat(ids):
     entry['cat'] = ids
     entry['videos'] = lt.newList('ARRAY_LIST')
     return entry
+
 def addCatVid(catalog,video):
     cats = catalog["videos-cat"]
     category = video["category_id"]
@@ -87,14 +91,21 @@ def addCatVid(catalog,video):
         mp.put(cats,category,cat)
     lt.addLast(cat["videos"],video)
 
-def prueba(catalog,idd):
-    valor = mp.get(catalog["videos-cat"],idd)
+def ReqLab(catalog, name, size):
+    idee = mp.get(catalog["categories"], name)
+    #print(catalog["categories"])
+    ideev = me.getValue(idee)
+    
+    valor = mp.get(catalog["videos-cat"],ideev)
     lista = me.getValue(valor)["videos"]
-    print(lista)
+    nuevaLista = sortVideos(lista, size, cmpVideosByLikes)
+    return nuevaLista
+
     """
     print(catalog["videos-cat"])"""
 
 # Funciones de consulta
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -106,4 +117,15 @@ def compareId(id1,id2):
     else:
         return -1
 
+
+def cmpVideosByLikes(video1,video2):
+    return (float(video1['likes']) > float(video2['likes']))
+
+
 # Funciones de ordenamiento
+
+def sortVideos(lst,size,cmp):
+    copia_lista = lst.copy()
+    list_orden = mgs.sort(copia_lista, cmp)
+    resul = lt.subList(list_orden, 1, size)
+    return resul

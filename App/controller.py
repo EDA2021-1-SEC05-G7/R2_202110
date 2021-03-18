@@ -41,7 +41,7 @@ def initCatalog():
 
 def loadData(catalog):
     # Videos:
-    videosfile = cf.data_dir + 'videos-5pct.csv'
+    videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
@@ -56,9 +56,15 @@ def loadData(catalog):
 
 # Funciones de ordenamiento
 
+def reqLab(catalog, name, size):
+
+    return model.ReqLab(catalog, name, size)
+
+
 # Funciones de consulta sobre el catálogo
 
 # pruebas
-catalog = initCatalog()
+"""catalog = initCatalog()
 loadData(catalog)
-print(model.prueba(catalog,"28"))
+print(model.prueba(catalog,"28"))"""
+
