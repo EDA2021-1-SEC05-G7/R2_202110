@@ -47,7 +47,7 @@ def newCatalog():
     catalog['categories'] = mp.newMap(numelements=44,
                                     maptype="CHAINING",
                                     loadfactor=4.0)
-    catalog["videos-cat"] = mp.newMap(numelements=50000,
+    catalog["videos-cat"] = mp.newMap(numelements=500,
                                     maptype="PROBING",
                                     loadfactor=0.5)
     
@@ -73,26 +73,26 @@ def addCat(catalog, cat):
 def newVidCat(ids):
     entry = {'cat': "", "videos": None}
     entry['cat'] = ids
-    entry['videos'] = lt.newList('SINGLE_LINKED')
+    entry['videos'] = lt.newList('ARRAY_LIST')
     return entry
 def addCatVid(catalog,video):
     cats = catalog["videos-cat"]
     category = video["category_id"]
     existcat = mp.contains(cats,category)
-    contadorif = 0
-    contadorelse = 0
     if existcat:
-        contadorif += 1
-        print("if",contadorif)
         entry = mp.get(cats,category)
         cat = me.getValue(entry)
     else:
-        contadorelse
-        print("else",contadorelse)
         cat = newVidCat(category)
         mp.put(cats,category,cat)
     lt.addLast(cat["videos"],video)
 
+def prueba(catalog,idd):
+    valor = mp.get(catalog["videos-cat"],idd)
+    lista = me.getValue(valor)["videos"]
+    print(lista)
+    """
+    print(catalog["videos-cat"])"""
 
 # Funciones de consulta
 

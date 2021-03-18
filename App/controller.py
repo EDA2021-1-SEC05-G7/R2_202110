@@ -45,6 +45,7 @@ def loadData(catalog):
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
+        model.addCatVid(catalog,video)
     # Categorias: 
     catfile = cf.data_dir + 'category-id.csv'
     input_cat_file = csv.DictReader(open(catfile, encoding="utf-8"),  delimiter='\t')
@@ -56,3 +57,8 @@ def loadData(catalog):
 # Funciones de ordenamiento
 
 # Funciones de consulta sobre el catálogo
+
+# pruebas
+catalog = initCatalog()
+loadData(catalog)
+print(model.prueba(catalog,"28"))
