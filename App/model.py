@@ -41,15 +41,33 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog():
+def newCatalog(num1,num2):
+    tipo = ""
+    factor = 0
     catalog = {'ListCompleteVidAll': None,
                'categories': None,
                'videos-cat': None}
-
+    if num1 == 1:
+        tipo = "PROBING"
+        if num2 == 1:
+            factor = 0.30
+        elif num2 == 2:
+            factor = 0.50
+        elif num2 == 3:
+            factor = 0.80
+    elif num1 == 2:
+        tipo = "CHAINING"
+        if num2 == 1:
+            factor = 2.00
+        elif num2 == 2:
+            factor = 4.00
+        elif num2 == 3:
+            factor = 6.00
+    print("vamos en el tipo: ",tipo, "con factor: ", factor)
     catalog['ListCompleteVidAll'] = lt.newList("ARRAY_LIST")
     catalog['categories'] = mp.newMap(numelements=44,
-                                    maptype="CHAINING",
-                                    loadfactor=4.0)
+                                    maptype=tipo,
+                                    loadfactor=factor)
     catalog["videos-cat"] = mp.newMap(numelements=500,
                                     maptype="PROBING",
                                     loadfactor=0.5)

@@ -51,6 +51,15 @@ def printMenu():
 
 catalog = None
 
+def fullfunck(num1,num2):
+    catalog = controller.initCatalog(num1,num2)
+    (a,b) = controller.loadData(catalog)
+    print("Cargando información de los archivos... Esto puede tardar un poco.")
+    if catalog == None:
+        print("No ha seleccionado una opcion valida")
+    else:
+        print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
+        print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}")
 """
 Menu principal
 """
@@ -58,14 +67,14 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n(recuerde que antes de escoger cualquier opción tiene que cargar primero la información del catálogo)\n')
     if int(inputs[0]) == 1:
-        catalog = controller.initCatalog()
-        loadData(catalog)
-        print("Cargando información de los archivos... Esto puede tardar un poco.")
-        if catalog == None:
-            print("No ha seleccionado una opcion valida")
-        else:
-            print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
+        opc = [1,2]
+        opc1 = [1,2,3]
+        for i in opc:
+            for j in opc1:
+                fullfunck(i,j)
             
+        
+
 
     elif int(inputs[0]) == 2:
         print ("Encontrar buenos videos por categoría y país")
