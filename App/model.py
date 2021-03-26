@@ -69,8 +69,8 @@ def newCatalog(num1,num2):
                                     maptype=tipo,
                                     loadfactor=factor)
     catalog["videos-cat"] = mp.newMap(numelements=500,
-                                    maptype="PROBING",
-                                    loadfactor=0.5)
+                                    maptype=tipo,
+                                    loadfactor=factor)
     
     return catalog
 
