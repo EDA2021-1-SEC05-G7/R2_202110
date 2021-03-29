@@ -52,7 +52,7 @@ def printMenu():
 catalog = None
 
 def fullfunck(num1,num2):
-    catalog = controller.initCatalog(num1,num2)
+    """catalog = controller.initCatalog(num1,num2)
     (a,b) = controller.loadData(catalog)
     print("Cargando información de los archivos... Esto puede tardar un poco.")
     if catalog == None:
@@ -60,7 +60,7 @@ def fullfunck(num1,num2):
     else:
         print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
         print('Categorías cargados: ' + str(lt.size(catalog['categories'])))
-        print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}")
+        print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}")"""
 """
 Menu principal
 """
@@ -68,14 +68,20 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n(recuerde que antes de escoger cualquier opción tiene que cargar primero la información del catálogo)\n')
     if int(inputs[0]) == 1:
-        fullfunck(1,1)
         """opc = [1,2]
         opc1 = [1,2,3]
         for i in opc:
             for j in opc1:
                 fullfunck(i,j)"""
-            
-        
+        catalog = controller.initCatalog()
+        (a,b) = controller.loadData(catalog)
+        print("Cargando información de los archivos... Esto puede tardar un poco.")
+        if catalog == None:
+            print("No ha seleccionado una opcion valida")
+        else:
+            print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
+            print('Categorías cargados: ' + str(lt.size(catalog['categories'])))
+            print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}") 
 
 
     elif int(inputs[0]) == 2:
@@ -83,7 +89,7 @@ while True:
         size = int(input("¿De que tamaño quiere la lista?: "))
         name = input("¿De que categoría desea saber los videos?: ")
         country = input("¿De que pais desea saber los videos?: ")
-        resul = controller.reqUno(catalog,name,country,size)
+        resul = controller.reqUno(catalog,name,size,country)
         print(resul)
         
             

@@ -31,6 +31,8 @@ from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import mergesort as mgs
+from DISClib.DataStructures import arraylistiterator as it
+
 
 assert cf
 
@@ -41,9 +43,9 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog(num1,num2):
-    tipo = ""
-    factor = 0
+def newCatalog():
+    """tipo = ""
+    factor = 0"""
     catalog = {'ListCompleteVidAll': None,
                'categories': None,
                'videos-cat': None}
@@ -63,7 +65,6 @@ def newCatalog(num1,num2):
             factor = 4.00
         elif num2 == 3:
             factor = 6.00"""
-    print("vamos en el tipo: ",tipo, "con factor: ", factor)
     catalog['ListCompleteVidAll'] = lt.newList("ARRAY_LIST")
     catalog['categories'] = mp.newMap(numelements=44,
                                     maptype="PROBING",
@@ -135,18 +136,18 @@ def ReqUno(catalog, name, size, country):
     while it.hasNext(iterator):
         element = it.next(iterator)
         if element["country"].lower() == country.lower():
-            newdict = {"trending_date": element['trending_date'],
+            """newdict = {"trending_date": element['trending_date'],
             'title': element['title'],
             "channel_title": element['channel_title'],
             "publish_time": element["publish_time"],
             'views': element['views'],
             "likes": element['likes'], 
-            "dislikes": element['dislikes']}
+            "dislikes": element['dislikes']}"""
+            newdict = {'title': element['title'], 'views': element['views']}
+            lt.addLast(nuevl,newdict)
 
-            lt.addLast(nl,newdict)
 
-
-    nuevaLista = sortVideos(lista, size, cmpVideosByViews)
+    nuevaLista = sortVideos(nuevl, size, cmpVideosByViews)
 
     return nuevaLista
 
