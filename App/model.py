@@ -47,7 +47,7 @@ def newCatalog(num1,num2):
     catalog = {'ListCompleteVidAll': None,
                'categories': None,
                'videos-cat': None}
-    if num1 == 1:
+    """if num1 == 1:
         tipo = "PROBING"
         if num2 == 1:
             factor = 0.30
@@ -62,15 +62,15 @@ def newCatalog(num1,num2):
         elif num2 == 2:
             factor = 4.00
         elif num2 == 3:
-            factor = 6.00
+            factor = 6.00"""
     print("vamos en el tipo: ",tipo, "con factor: ", factor)
     catalog['ListCompleteVidAll'] = lt.newList("ARRAY_LIST")
     catalog['categories'] = mp.newMap(numelements=44,
-                                    maptype=tipo,
-                                    loadfactor=factor)
+                                    maptype="PROBING",
+                                    loadfactor=0.5)
     catalog["videos-cat"] = mp.newMap(numelements=500,
-                                    maptype=tipo,
-                                    loadfactor=factor)
+                                    maptype="CHAINING",
+                                    loadfactor=4.0)
     
     return catalog
 
@@ -115,12 +115,41 @@ def ReqLab(catalog, name, size):
     ideev = me.getValue(idee)
     
     valor = mp.get(catalog["videos-cat"],ideev)
+    
+    
     lista = me.getValue(valor)["videos"]
     nuevaLista = sortVideos(lista, size, cmpVideosByLikes)
     return nuevaLista
 
     """
     print(catalog["videos-cat"])"""
+
+
+def ReqUno(catalog, name, size, country):
+    idee = mp.get(catalog["categories"], name)
+    ideev = me.getValue(idee)
+    valor = mp.get(catalog["videos-cat"],ideev)
+    lista = me.getValue(valor)["videos"]
+    nuevl = lt.newList(datastructure="ARRAY_LIST")
+    iterator = it.newIterator(lista)
+    while it.hasNext(iterator):
+        element = it.next(iterator)
+        if element["country"].lower() == country.lower():
+            newdict = {"trending_date": element['trending_date'],
+            'title': element['title'],
+            "channel_title": element['channel_title'],
+            "publish_time": element["publish_time"],
+            'views': element['views'],
+            "likes": element['likes'], 
+            "dislikes": element['dislikes']}
+
+            lt.addLast(nl,newdict)
+
+
+    nuevaLista = sortVideos(lista, size, cmpVideosByViews)
+
+    return nuevaLista
+
 
 # Funciones de consulta
 
@@ -139,6 +168,9 @@ def compareId(id1,id2):
 def cmpVideosByLikes(video1,video2):
     return (float(video1['likes']) > float(video2['likes']))
 
+
+def cmpVideosByViews(video1, video2): 
+    return (float(video1['views']) > float(video2['views']))
 
 # Funciones de ordenamiento
 

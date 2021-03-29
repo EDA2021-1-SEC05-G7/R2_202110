@@ -59,6 +59,7 @@ def fullfunck(num1,num2):
         print("No ha seleccionado una opcion valida")
     else:
         print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
+        print('Categorías cargados: ' + str(lt.size(catalog['categories'])))
         print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}")
 """
 Menu principal
@@ -67,25 +68,23 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n(recuerde que antes de escoger cualquier opción tiene que cargar primero la información del catálogo)\n')
     if int(inputs[0]) == 1:
-        opc = [1,2]
+        fullfunck(1,1)
+        """opc = [1,2]
         opc1 = [1,2,3]
         for i in opc:
             for j in opc1:
-                fullfunck(i,j)
+                fullfunck(i,j)"""
             
         
 
 
     elif int(inputs[0]) == 2:
         print ("Encontrar buenos videos por categoría y país")
-        """#size = int(input("¿De que tamaño quiere la lista?: "))
-        #name = input("¿De que categoría desea saber los videos?: ")
-        #country = input("¿De que pais desea saber los videos?: ")
-        #if size > lt.size(catalog['ListCompleteVidAll']):
-            print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")
-        else:
-            resul = controller.req1(catalog,name,country,size)
-            print(resul)"""
+        size = int(input("¿De que tamaño quiere la lista?: "))
+        name = input("¿De que categoría desea saber los videos?: ")
+        country = input("¿De que pais desea saber los videos?: ")
+        resul = controller.reqUno(catalog,name,country,size)
+        print(resul)
         
             
     elif int(inputs[0]) == 3:
