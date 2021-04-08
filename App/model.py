@@ -175,6 +175,7 @@ def cmpVideosByViews(video1, video2):
 
 # Funciones de ordenamiento
 
+
 def sortVideos(lst,size,cmp):
     copia_lista = lst.copy()
     list_orden = mgs.sort(copia_lista, cmp)
