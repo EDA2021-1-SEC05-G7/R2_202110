@@ -66,7 +66,7 @@ def loadData(catalog):
 def loadVideos(catalog):
 
     # Videos:
-    videosfile = cf.data_dir + 'videos-5pct.csv'
+    videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
@@ -102,9 +102,9 @@ def reqTres(catalog,name):
     return model.ReqTres(catalog,name)
 
 # pruebas
-catalog = initCatalog()
-loadData(catalog)
-print(reqTres(catalog,"Sports"))
+#catalog = initCatalog()
+#loadData(catalog)
+#print(reqTres(catalog,"Sports"))
 
 # ======================================
 # Funciones para medir tiempo y memoria

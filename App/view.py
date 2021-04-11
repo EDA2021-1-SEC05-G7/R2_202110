@@ -82,8 +82,12 @@ while True:
         else:
             print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
             print('Categorías cargados: ' + str(mp.size(catalog['categories'])))
-            print(mp.keySet(catalog["videos-pais"]))
+            print(mp.keySet(catalog['categories']))
+            print('Categorias:' + str(mp.size(catalog["videos-cat"])))
+            print(mp.keySet(catalog['videos-cat']))
             print('Paises:' + str(mp.size(catalog["videos-pais"])))
+            print(mp.keySet(catalog["videos-pais"]))
+            
             #print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}") 
 
 
