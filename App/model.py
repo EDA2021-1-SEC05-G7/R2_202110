@@ -121,15 +121,15 @@ def addCatVid(catalog,video):
     lt.addLast(cat["videos"],video)
 
 def addPaisVid(catalog, video):
-    paiss = catalog["videos-pais"]
-    pai = video["country"]
-    if mp.contains(paiss, pai):
-        entra = mp.get(paiss, pai)
-        pais = me.getValue(entra)
-    else:
-        pais = newVidPais(pai)
-        mp.put(paiss, pai, pais)
-    lt.addLast(pais["videos"], video)
+    paiss = catalog["videos-pais"]    #paiss guarda el map dentro del catalogo que tiene la información de los videos ordenada por paises
+    pai = video["country"]            #pai guarda el pais del video que le entra por parametro
+    if mp.contains(paiss, pai):       #el if inicia si el map paiss contiene la llave pai (el pais)
+        entra = mp.get(paiss, pai)    #entra guarda la pareja llave,valor de la llave pai(el pais)
+        pais = me.getValue(entra)     #retorna el Valor de la pareja llave,valor que retorna entra
+    else:                             #si el map paiss no tiene la llave pai entonces se ejecuta este else
+        pais = newVidPais(pai)        #pais retorna el diccionario que retorna la funcion newVidPais() con pai como valor del key pais
+        mp.put(paiss, pai, pais)      #pone en el map paiss, en la llave pai el dict pais
+    lt.addLast(pais["videos"], video) #añade un nuevo a la lista que esta dentro de la llave "videos" en el dict pais
 
 
 # Funciones de consulta
@@ -173,7 +173,8 @@ def ReqUno(catalog, name, size, country):
     return nuevaLista
 
 
-#def ReqDos(country):
+def ReqDos(country):
+    
 
 
 
