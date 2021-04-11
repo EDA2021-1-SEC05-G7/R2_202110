@@ -71,6 +71,7 @@ def loadVideos(catalog):
     for video in input_file:
         model.addVideo(catalog, video)
         model.addCatVid(catalog,video)
+        model.addPaisVid(catalog, video)
 
 
 def loadCats(catalog):

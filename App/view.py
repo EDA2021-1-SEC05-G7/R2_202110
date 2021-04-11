@@ -25,6 +25,7 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+from DISClib.ADT import map as mp
 
 default_limit = 1000 
 sys.setrecursionlimit(default_limit*10)
@@ -74,14 +75,16 @@ while True:
             for j in opc1:
                 fullfunck(i,j)"""
         catalog = controller.initCatalog()
-        (a,b) = controller.loadData(catalog)
+        controller.loadData(catalog)
         print("Cargando información de los archivos... Esto puede tardar un poco.")
         if catalog == None:
             print("No ha seleccionado una opcion valida")
         else:
             print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
-            print('Categorías cargados: ' + str(lt.size(catalog['categories'])))
-            print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}") 
+            print('Categorías cargados: ' + str(mp.size(catalog['categories'])))
+            print(catalog["videos-cat"])
+            print('Paises:' + str(mp.size(catalog["videos-pais"])))
+            #print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}") 
 
 
     elif int(inputs[0]) == 2:

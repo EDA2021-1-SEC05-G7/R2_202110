@@ -72,6 +72,9 @@ def newCatalog():
     catalog["videos-cat"] = mp.newMap(numelements=500,
                                     maptype="CHAINING",
                                     loadfactor=4.0)
+    catalog["videos-pais"] = mp.newMap(numelements=500,
+                                    maptype="CHAINING",
+                                    loadfactor=4.0)
     
     return catalog
 
@@ -98,6 +101,13 @@ def newVidCat(ids):
     entry['videos'] = lt.newList('ARRAY_LIST')
     return entry
 
+def newVidPais(pais):
+    entra = {"pais": "", "videos": None}
+    entra["pais"] = pais
+    entra["videos"] = lt.newList('ARRAY_LIST')
+    return entra
+
+
 def addCatVid(catalog,video):
     cats = catalog["videos-cat"]
     category = video["category_id"]
@@ -109,6 +119,18 @@ def addCatVid(catalog,video):
         cat = newVidCat(category)
         mp.put(cats,category,cat)
     lt.addLast(cat["videos"],video)
+
+def addPaisVid(catalog, video):
+    paiss = catalog["videos-pais"]
+    pai = video["country"]
+    if mp.contains(paiss, pai):
+        entra = mp.get(paiss, pai)
+        pais = me.getValue(entra)
+    else:
+        pais = newVidPais(pai)
+        mp.put(paiss, pai, pais)
+    lt.addLast(pais["videos"], video)
+
 
 # Funciones de consulta
 
@@ -149,6 +171,14 @@ def ReqUno(catalog, name, size, country):
     nuevaLista = sortVideos(nuevl, size, cmpVideosByViews)
 
     return nuevaLista
+
+
+#def ReqDos(country):
+
+
+
+
+
 
 
 def ReqTres(catalog, name):
