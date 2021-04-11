@@ -110,14 +110,13 @@ def addCatVid(catalog,video):
         mp.put(cats,category,cat)
     lt.addLast(cat["videos"],video)
 
+# Funciones de consulta
+
 def ReqLab(catalog, name, size):
     idee = mp.get(catalog["categories"], name)
     #print(catalog["categories"])
     ideev = me.getValue(idee)
-    
     valor = mp.get(catalog["videos-cat"],ideev)
-    
-    
     lista = me.getValue(valor)["videos"]
     nuevaLista = sortVideos(lista, size, cmpVideosByLikes)
     return nuevaLista
@@ -152,7 +151,28 @@ def ReqUno(catalog, name, size, country):
     return nuevaLista
 
 
-# Funciones de consulta
+def ReqTres(catalog, name):
+    idee = mp.get(catalog["categories"], name)
+    #print(catalog["categories"])
+    ideev = me.getValue(idee)
+    valor = mp.get(catalog["videos-cat"],ideev)
+    lista = me.getValue(valor)["videos"]
+    cats = {}
+    dick = {}
+    iterator = it.newIterator(lista)
+    while it.hasNext(iterator):
+        element = it.next(iterator)
+        if element['title'] in cats:
+            cats[element["title"]] += 1
+        else:
+            cats[element["title"]] = 1
+            dick[element["title"]] = element
+    (a, b) = max((cats[key], key) for key in cats)
+
+    return {'title': b, 'channel_title': dick[b]['channel_title'], 'category_id': dick[b]["category_id"], 'número de días': a}
+
+   
+
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista

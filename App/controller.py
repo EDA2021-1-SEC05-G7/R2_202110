@@ -42,26 +42,26 @@ def initCatalog():
 
 def loadData(catalog):
 
-    delta_time = -1.0
+    """delta_time = -1.0
     delta_memory = -1.0
 
     tracemalloc.start()
     start_time = getTime()
-    start_memory = getMemory()
+    start_memory = getMemory()"""
 
     loadVideos(catalog)
     loadCats(catalog)
 
-    stop_memory = getMemory()
+    """stop_memory = getMemory()
     stop_time = getTime()
     tracemalloc.stop()
 
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory
+    tupla = delta_time, delta_memory"""
 
-    return tupla
+    return None
 
 def loadVideos(catalog):
 
@@ -97,12 +97,13 @@ def reqUno(catalog, name, size, country):
 
     return model.ReqUno(catalog, name, size, country)
 
-
+def reqTres(catalog,name):
+    return model.ReqTres(catalog,name)
 
 # pruebas
-"""catalog = initCatalog()
+catalog = initCatalog()
 loadData(catalog)
-print(model.prueba(catalog,"28"))"""
+print(reqTres(catalog,"Sports"))
 
 # ======================================
 # Funciones para medir tiempo y memoria
