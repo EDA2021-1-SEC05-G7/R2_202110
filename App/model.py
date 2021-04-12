@@ -87,6 +87,7 @@ def addVideo(catalog, video):
     lt.addLast(catalog['ListCompleteVidAll'], video)
     #addCatVid(catalog,video)
 
+
 def addCat(catalog, cat):
     mp.put(catalog["categories"],cat["name"].strip(), cat["id"].strip())
     
@@ -100,6 +101,7 @@ def newVidCat(ids):
     entry['cat'] = ids
     entry['videos'] = lt.newList('ARRAY_LIST')
     return entry
+
 
 def newVidPais(pais):
     toxic = {"pais": "", "videos": None}
@@ -123,16 +125,16 @@ def addCatVid(catalog,video):
 
 
 def addPaisVid(catalog, video):
-    paiss = catalog["videos-pais"]    #"paiss" guarda el map dentro del catalogo que tiene la información de los videos ordenada por paises
-    pai = video["country"]            #"pai" guarda el pais del video que le toxic por parametro
-    existpai = mp.contains(paiss, pai)
-    if existpai:                      #el "if" inicia si el map "paiss" contiene la llave "pai" (el pais)
-        toxic = mp.get(paiss, pai)    #"toxic" guarda la pareja (llave,valor) de la llave "pai" (el pais)
-        pais = me.getValue(toxic)     #retorna el Valor de la pareja llave,valor que retorna "toxic"
-    else:                             #si el map "paiss" no tiene la llave "pai" entonces se ejecuta este "else"
-        pais = newVidPais(pai)        #"pais" guarda el diccionario que retorna la funcion "newVidPais()" con "pai" como valor del key "pais"
-        mp.put(paiss, pai, pais)      #pone en el map "paiss", en la llave "pai" el dict "pais"
-    lt.addLast(pais["videos"], video) #añade un nuevo a la lista que esta dentro de la llave "videos" en el dict "pais"
+    paiss = catalog["videos-pais"]     #"paiss" guarda el map dentro del catalogo que tiene la información de los videos ordenada por paises
+    pai = video["country"]             #"pai" guarda el pais del video que le toxic por parametro
+    existpai = mp.contains(paiss, pai) #revisa si el map "paiss" contiene la llave "pai" (el pais) y retorna true o false
+    if existpai:                       #el "if" inicia si "existpai" es true
+        toxic = mp.get(paiss, pai)     #"toxic" guarda la pareja (llave,valor) de la llave "pai" (el pais)
+        pais = me.getValue(toxic)      #retorna el Valor de la pareja llave,valor que retorna "toxic"
+    else:                              #si el map "paiss" no tiene la llave "pai" entonces se ejecuta este "else"
+        pais = newVidPais(pai)         #"pais" guarda el diccionario que retorna la funcion "newVidPais()" con "pai" como valor del key "pais"
+        mp.put(paiss, pai, pais)       #pone en el map "paiss", en la llave "pai" el dict "pais"
+    lt.addLast(pais["videos"], video)  #añade un nuevo a la lista que esta dentro de la llave "videos" en el dict "pais"
 
 
 # Funciones de consulta
