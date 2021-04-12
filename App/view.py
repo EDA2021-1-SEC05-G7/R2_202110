@@ -82,11 +82,11 @@ while True:
         else:
             print('Videos cargados: ' + str(lt.size(catalog['ListCompleteVidAll'])))
             print('Categorías cargados: ' + str(mp.size(catalog['categories'])))
-            print(mp.keySet(catalog['categories']))
+            #print(mp.keySet(catalog['categories']))
             print('Categorias:' + str(mp.size(catalog["videos-cat"])))
-            print(mp.keySet(catalog['videos-cat']))
+            #print(mp.keySet(catalog['videos-cat']))
             print('Paises:' + str(mp.size(catalog["videos-pais"])))
-            print(mp.keySet(catalog["videos-pais"]))
+            #print(mp.keySet(catalog["videos-pais"]))
             
             #print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}") 
 
@@ -102,14 +102,14 @@ while True:
             
     elif int(inputs[0]) == 3:
         print ("Encontrar video tendencia por país")
-        """country = input("Ingrese el nombre del país del cual quiere saber el video que más fue tendencia: ")
-        print(controller.req2(catalog, country))"""
+        country = input("Ingrese el nombre del país del cual quiere saber el video que más fue tendencia: ")
+        print(controller.reqDos(catalog, country))
         
 
     elif int(inputs[0]) == 4:
         print('Encontrar videos tendencias por categoría')
-        """category = input("Ingrese la categoria de la cual quiera saber el video que más fue tendencia: ")
-        print(controller.req3(catalog,category))"""
+        category = input("Ingrese la categoria de la cual quiera saber el video que más fue tendencia: ")
+        print(controller.reqTres(catalog,category))
 
 
     elif int(inputs[0]) == 5:

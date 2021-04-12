@@ -98,6 +98,9 @@ def reqUno(catalog, name, size, country):
 
     return model.ReqUno(catalog, name, size, country)
 
+def reqDos(catalog, country):
+    return model.ReqDos(catalog, country)
+
 def reqTres(catalog,name):
     return model.ReqTres(catalog,name)
 

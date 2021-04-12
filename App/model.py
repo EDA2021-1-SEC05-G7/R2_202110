@@ -85,7 +85,7 @@ def newCatalog():
 
 def addVideo(catalog, video):
     lt.addLast(catalog['ListCompleteVidAll'], video)
-    addCatVid(catalog,video)
+    #addCatVid(catalog,video)
 
 def addCat(catalog, cat):
     mp.put(catalog["categories"],cat["name"].strip(), cat["id"].strip())
@@ -102,10 +102,10 @@ def newVidCat(ids):
     return entry
 
 def newVidPais(pais):
-    entra = {"pais": "", "videos": None}
-    entra["pais"] = pais
-    entra["videos"] = lt.newList('ARRAY_LIST')
-    return entra
+    toxic = {"pais": "", "videos": None}
+    toxic["pais"] = pais
+    toxic["videos"] = lt.newList('ARRAY_LIST')
+    return toxic
 
 
 def addCatVid(catalog,video):
@@ -120,16 +120,18 @@ def addCatVid(catalog,video):
         mp.put(cats,category,cat)
     lt.addLast(cat["videos"],video)
 
+
+
 def addPaisVid(catalog, video):
-    paiss = catalog["videos-pais"]    #paiss guarda el map dentro del catalogo que tiene la información de los videos ordenada por paises
-    pai = video["country"]            #pai guarda el pais del video que le entra por parametro
-    if mp.contains(paiss, pai):       #el if inicia si el map paiss contiene la llave pai (el pais)
-        entra = mp.get(paiss, pai)    #entra guarda la pareja llave,valor de la llave pai(el pais)
-        pais = me.getValue(entra)     #retorna el Valor de la pareja llave,valor que retorna entra
-    else:                             #si el map paiss no tiene la llave pai entonces se ejecuta este else
-        pais = newVidPais(pai)        #pais retorna el diccionario que retorna la funcion newVidPais() con pai como valor del key pais
-        mp.put(paiss, pai, pais)      #pone en el map paiss, en la llave pai el dict pais
-    lt.addLast(pais["videos"], video) #añade un nuevo a la lista que esta dentro de la llave "videos" en el dict pais
+    paiss = catalog["videos-pais"]    #"paiss" guarda el map dentro del catalogo que tiene la información de los videos ordenada por paises
+    pai = video["country"]    #"pai" guarda el pais del video que le toxic por parametro
+    if mp.contains(paiss, pai):       #el "if" inicia si el map "paiss" contiene la llave "pai" (el pais)
+        toxic = mp.get(paiss, pai)    #"toxic" guarda la pareja (llave,valor) de la llave "pai" (el pais)
+        pais = me.getValue(toxic)     #retorna el Valor de la pareja llave,valor que retorna "toxic"
+    else:                             #si el map "paiss" no tiene la llave "pai" entonces se ejecuta este "else"
+        pais = newVidPais(pai)        #"pais" guarda el diccionario que retorna la funcion "newVidPais()" con "pai" como valor del key "pais"
+        mp.put(paiss, pai, pais)      #pone en el map "paiss", en la llave "pai" el dict "pais"
+    lt.addLast(pais["videos"], video) #añade un nuevo a la lista que esta dentro de la llave "videos" en el dict "pais"
 
 
 # Funciones de consulta
@@ -157,14 +159,13 @@ def ReqUno(catalog, name, size, country):
     while it.hasNext(iterator):
         element = it.next(iterator)
         if element["country"].lower() == country.lower():
-            """newdict = {"trending_date": element['trending_date'],
+            newdict = {"trending_date": element['trending_date'],
             'title': element['title'],
             "channel_title": element['channel_title'],
             "publish_time": element["publish_time"],
             'views': element['views'],
             "likes": element['likes'], 
-            "dislikes": element['dislikes']}"""
-            newdict = {'title': element['title'], 'views': element['views']}
+            "dislikes": element['dislikes']}
             lt.addLast(nuevl,newdict)
 
 
@@ -173,14 +174,23 @@ def ReqUno(catalog, name, size, country):
     return nuevaLista
 
 
-def ReqDos(country):
-    
+def ReqDos(catalog, country):
+    videitos = mp.get(catalog["videos-pais"], country)
+    videillos = me.getValue(videitos)["videos"]
+    ceteras = {}
+    paisotes = {}
+    iteradorillo = it.newIterator(videillos)
+    while it.hasNext(iteradorillo):
+        elemento = it.next(iteradorillo)
+        if elemento["title"] in ceteras:
+            ceteras[elemento["title"]] += 1
+        else:
+            ceteras[elemento["title"]] = 1
+            paisotes[elemento["title"]] = elemento
 
+        (a, b) = max((ceteras[key], key) for key in ceteras)
 
-
-
-
-
+        return {"title": b, "Channel_title": paisotes[b]['channel_title'], "Country": country, "Número de días": a}
 
 def ReqTres(catalog, name):
     idee = mp.get(catalog["categories"], name)
