@@ -43,7 +43,7 @@ def loadData(catalog):
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("6- Encontrar buenos videos por categoría")
+    #print("6- Encontrar buenos videos por categoría")
     print("2- Encontrar buenos videos por categoría y país")
     print("3- Encontrar video tendencia por país")
     print("4- Encontrar video tendencia por categoría")
@@ -114,14 +114,14 @@ while True:
 
     elif int(inputs[0]) == 5:
         print('Buscar los videos con mas likes de un pais y con un tag determinados')
-        """country = input("Ingrese el pais del cual  quiera conocer los videos con mas likes: ")
+        country = input("Ingrese el pais del cual  quiera conocer los videos con mas likes: ")
         tag = input("Ingrese el tag del cual quiera saber los videos: ")
         size = int(input("Ingrese la cantidad de videos que quiera conocer: "))
-        result = controller.req4(catalog,tag,country,size)
+        result = controller.ReqCuatro(catalog,tag,country,size)
         if result == 0:
             print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")
         else:
-            print(result)"""
+            print(result)
 
     elif int(inputs[0]) == 6:
         print('Buscar los videos con mas likes de una categoría')

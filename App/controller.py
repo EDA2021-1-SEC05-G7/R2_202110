@@ -40,6 +40,8 @@ def initCatalog():
 
     return catalog
 
+# Funciones para la carga de datos
+
 def loadData(catalog):
 
     """delta_time = -1.0
@@ -83,7 +85,6 @@ def loadCats(catalog):
         model.addCat(catalog, cat)
     
 
-# Funciones para la carga de datos
 
 # Funciones de ordenamiento
 
@@ -95,7 +96,6 @@ def reqLab(catalog, name, size):
 # Funciones de consulta sobre el catálogo
 
 def reqUno(catalog, name, size, country):
-
     return model.ReqUno(catalog, name, size, country)
 
 def reqDos(catalog, country):
@@ -103,6 +103,11 @@ def reqDos(catalog, country):
 
 def reqTres(catalog,name):
     return model.ReqTres(catalog,name)
+
+def ReqCuatro(catalog, tag, country, size):
+    return model.ReqCuatro(catalog, tag, country, size)
+
+
 
 # pruebas
 #catalog = initCatalog()

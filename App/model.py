@@ -160,15 +160,15 @@ def ReqUno(catalog, name, size, country):
     nuevl = lt.newList(datastructure="ARRAY_LIST")
     iterator = it.newIterator(lista)
     while it.hasNext(iterator):
-        element = it.next(iterator)
-        if element["country"].lower() == country.lower():
-            newdict = {"trending_date": element['trending_date'],
-            'title': element['title'],
-            "channel_title": element['channel_title'],
-            "publish_time": element["publish_time"],
-            'views': element['views'],
-            "likes": element['likes'], 
-            "dislikes": element['dislikes']}
+        aire = it.next(iterator)
+        if aire["country"].lower() == country.lower():
+            newdict = {"trending_date": aire['trending_date'],
+            'title': aire['title'],
+            "channel_title": aire['channel_title'],
+            "publish_time": aire["publish_time"],
+            'views': aire['views'],
+            "likes": aire['likes'], 
+            "dislikes": aire['dislikes']}
             lt.addLast(nuevl,newdict)
 
 
@@ -186,12 +186,12 @@ def ReqDos(catalog, country):
     paisotes = {}
     iteradorillo = it.newIterator(videillos)
     while it.hasNext(iteradorillo):
-        elemento = it.next(iteradorillo)
-        if elemento["title"] in ceteras:
-            ceteras[elemento["title"]] += 1
+        agua = it.next(iteradorillo)
+        if agua["title"] in ceteras:
+            ceteras[agua["title"]] += 1
         else:
-            ceteras[elemento["title"]] = 1
-            paisotes[elemento["title"]] = elemento
+            ceteras[agua["title"]] = 1
+            paisotes[agua["title"]] = agua
 
     (a, b) = max((ceteras[key], key) for key in ceteras)
 
@@ -208,17 +208,41 @@ def ReqTres(catalog, name):
     dick = {}
     iterator = it.newIterator(lista)
     while it.hasNext(iterator):
-        element = it.next(iterator)
-        if element['title'] in cats:
-            cats[element["title"]] += 1
+        tierra = it.next(iterator)
+        if tierra['title'] in cats:
+            cats[tierra["title"]] += 1
         else:
-            cats[element["title"]] = 1
-            dick[element["title"]] = element
+            cats[tierra["title"]] = 1
+            dick[tierra["title"]] = tierra
     (a, b) = max((cats[key], key) for key in cats)
 
     return {'title': b, 'channel_title': dick[b]['channel_title'], 'category_id': dick[b]["category_id"], 'número de días': a}
 
-   
+def ReqCuatro(catalog, tag, country, size):
+    videitos = mp.get(catalog["videos-pais"], country)
+    videillos = me.getValue(videitos)["videos"]
+    elqueitera = it.newIterator(videillos)
+    tagslist = lt.newList()
+    while it.hasNext(elqueitera):
+        fuego = it.next(elqueitera)
+        etiquetas = fuego["tags"].split("|")
+        for j in etiquetas:
+            if tag.lower() in j.lower():
+                dictiquetas = {'title': fuego['title'],
+                "channel_title": fuego['channel_title'],
+                "publish_time": fuego["publish_time"],
+                'views': fuego['views'],
+                "likes": fuego['likes'], 
+                "dislikes": fuego['dislikes'],
+                "tags": fuego['tags']}
+                lt.addLast(tagslist, dictiquetas)
+
+    if size > lt.size(tagslist):
+        ordenation = 0
+    else:
+        ordenation = sortVideos(tagslist,size,cmpVideosByLikes)
+    return ordenation
+
 
 
 
