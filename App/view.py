@@ -86,7 +86,7 @@ while True:
             print('Categorias:' + str(mp.size(catalog["videos-cat"])))
             #print(mp.keySet(catalog['videos-cat']))
             print('Paises:' + str(mp.size(catalog["videos-pais"])))
-            #print(mp.keySet(catalog["videos-pais"]))
+            #print(mp.valueSet(catalog["videos-pais"]))
             
             #print("Tiempo [ms]: ", f"{a:.3f}", "  ||  ", "Memoria [kB]: ", f"{b:.3f}") 
 

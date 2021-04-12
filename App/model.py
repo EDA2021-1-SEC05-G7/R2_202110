@@ -124,8 +124,9 @@ def addCatVid(catalog,video):
 
 def addPaisVid(catalog, video):
     paiss = catalog["videos-pais"]    #"paiss" guarda el map dentro del catalogo que tiene la información de los videos ordenada por paises
-    pai = video["country"]    #"pai" guarda el pais del video que le toxic por parametro
-    if mp.contains(paiss, pai):       #el "if" inicia si el map "paiss" contiene la llave "pai" (el pais)
+    pai = video["country"]            #"pai" guarda el pais del video que le toxic por parametro
+    existpai = mp.contains(paiss, pai)
+    if existpai:                      #el "if" inicia si el map "paiss" contiene la llave "pai" (el pais)
         toxic = mp.get(paiss, pai)    #"toxic" guarda la pareja (llave,valor) de la llave "pai" (el pais)
         pais = me.getValue(toxic)     #retorna el Valor de la pareja llave,valor que retorna "toxic"
     else:                             #si el map "paiss" no tiene la llave "pai" entonces se ejecuta este "else"
@@ -176,6 +177,8 @@ def ReqUno(catalog, name, size, country):
 
 def ReqDos(catalog, country):
     videitos = mp.get(catalog["videos-pais"], country)
+    #print(mp.valueSet(catalog["videos-pais"]))
+    #print(videitos)
     videillos = me.getValue(videitos)["videos"]
     ceteras = {}
     paisotes = {}
@@ -188,15 +191,16 @@ def ReqDos(catalog, country):
             ceteras[elemento["title"]] = 1
             paisotes[elemento["title"]] = elemento
 
-        (a, b) = max((ceteras[key], key) for key in ceteras)
+    (a, b) = max((ceteras[key], key) for key in ceteras)
 
-        return {"title": b, "Channel_title": paisotes[b]['channel_title'], "Country": country, "Número de días": a}
+    return {"title": b, "Channel_title": paisotes[b]['channel_title'], "Country": country, "Número de días": a}
 
 def ReqTres(catalog, name):
     idee = mp.get(catalog["categories"], name)
     #print(catalog["categories"])
     ideev = me.getValue(idee)
     valor = mp.get(catalog["videos-cat"],ideev)
+    #print(valor)
     lista = me.getValue(valor)["videos"]
     cats = {}
     dick = {}
