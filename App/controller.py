@@ -96,16 +96,95 @@ def reqLab(catalog, name, size):
 # Funciones de consulta sobre el catálogo
 
 def reqUno(catalog, name, size, country):
-    return model.ReqUno(catalog, name, size, country)
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+    
+    #req
+    req = model.ReqUno(catalog, name, size, country)
+
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    
+    tupla = delta_time, delta_memory, req
+
+    return tupla
 
 def reqDos(catalog, country):
-    return model.ReqDos(catalog, country)
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+    
+    #req
+    req = model.ReqDos(catalog, country)
+
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    
+    tupla = delta_time, delta_memory, req
+
+    return tupla
 
 def reqTres(catalog,name):
-    return model.ReqTres(catalog,name)
+
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+    
+    #req
+    req = model.ReqTres(catalog,name)
+
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    
+    tupla = delta_time, delta_memory, req
+
+    return tupla
 
 def ReqCuatro(catalog, tag, country, size):
-    return model.ReqCuatro(catalog, tag, country, size)
+
+    delta_time = -1.0
+    delta_memory = -1.0
+
+    tracemalloc.start()
+    start_time = getTime()
+    start_memory = getMemory()
+    
+    #req
+    req = model.ReqCuatro(catalog, tag, country, size)
+
+    stop_memory = getMemory()
+    stop_time = getTime()
+    tracemalloc.stop()
+
+    delta_time = stop_time - start_time
+    delta_memory = deltaMemory(start_memory, stop_memory)
+    
+    tupla = delta_time, delta_memory, req
+
+    return tupla
+    
 
 
 

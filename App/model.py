@@ -33,6 +33,7 @@ from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.Algorithms.Sorting import mergesort as mgs
 from DISClib.DataStructures import arraylistiterator as it
 
+from pprint import pprint
 
 assert cf
 
@@ -182,21 +183,41 @@ def ReqDos(catalog, country):
     #print(mp.valueSet(catalog["videos-pais"]))
     #print(videitos)
     videillos = me.getValue(videitos)["videos"]
-    ceteras = {}
-    paisotes = {}
-    iteradorillo = it.newIterator(videillos)
-    while it.hasNext(iteradorillo):
-        agua = it.next(iteradorillo)
-        if agua["title"] in ceteras:
-            ceteras[agua["title"]] += 1
+    ceteras = mp.newMap(numelements=500,
+                    maptype="CHAINING",
+                    loadfactor=4.0)
+    dickss = mp.newMap(numelements=500,
+                    maptype="CHAINING",
+                    loadfactor=4.0)
+    iterator = it.newIterator(videillos)
+    while it.hasNext(iterator):
+        tierra = it.next(iterator)
+        if mp.contains(ceteras,tierra['title']):
+            pareja = mp.get(ceteras,tierra['title'])
+            valor = me.getValue(pareja) + 1
+            mp.put(ceteras,tierra["title"],valor)
         else:
-            ceteras[agua["title"]] = 1
-            paisotes[agua["title"]] = agua
-
-    (a, b) = max((ceteras[key], key) for key in ceteras)
-
-    return {"title": b, "Channel_title": paisotes[b]['channel_title'], "Country": country, "Número de días": a}
-
+            mp.put(ceteras,tierra["title"],1)
+            mp.put(dickss,tierra["title"],tierra)
+    k = None
+    mx = -1
+    varx = mp.keySet(ceteras)
+    itr = varx["first"]
+    if itr == None:
+        return None
+    while itr:
+        element = itr["info"]
+        cnt = mp.get(ceteras, element)
+        cnts = me.getValue(cnt)
+        if cnts > mx:
+            mx = cnts
+            k = element
+        itr = itr["next"] 
+    zzz = mp.get(dickss,k)
+    b = me.getValue(zzz)
+    result = {'Title': b["title"], 'Channel_title': b['channel_title'], 'Country': country, 'Número de días': mx}
+    return result
+    
 def ReqTres(catalog, name):
     idee = mp.get(catalog["categories"], name)
     #print(catalog["categories"])
@@ -204,20 +225,46 @@ def ReqTres(catalog, name):
     valor = mp.get(catalog["videos-cat"],ideev)
     #print(valor)
     lista = me.getValue(valor)["videos"]
-    cats = {}
-    dick = {}
+    catss = mp.newMap(numelements=500,
+                    maptype="CHAINING",
+                    loadfactor=4.0)
+    dickss = mp.newMap(numelements=500,
+                    maptype="CHAINING",
+                    loadfactor=4.0)
     iterator = it.newIterator(lista)
     while it.hasNext(iterator):
         tierra = it.next(iterator)
-        if tierra['title'] in cats:
-            cats[tierra["title"]] += 1
+        if mp.contains(catss,tierra['title']):
+            #cats[tierra["title"]] += 1
+            pareja = mp.get(catss,tierra['title'])
+            valor = me.getValue(pareja) + 1
+            mp.put(catss,tierra["title"],valor)
+            
         else:
-            cats[tierra["title"]] = 1
-            dick[tierra["title"]] = tierra
-    (a, b) = max((cats[key], key) for key in cats)
+            mp.put(catss,tierra["title"],1)
+            mp.put(dickss,tierra["title"],tierra)
+    #(a, b) = max((catss[key], key) for key in catss)
 
-    return {'title': b, 'channel_title': dick[b]['channel_title'], 'category_id': dick[b]["category_id"], 'número de días': a}
+    k = None
+    mx = -1
+    varx = mp.keySet(catss)
+    itr = varx["first"]
+    if itr == None:
+        return None
+    while itr:
+        element = itr["info"]
+        cnt = mp.get(catss, element)
+        cnts = me.getValue(cnt)
+        if cnts > mx:
+            mx = cnts
+            k = element
+        itr = itr["next"] 
+    zzz = mp.get(dickss,k)
+    b = me.getValue(zzz)
+    result = {'title': b["title"], 'channel_title': b['channel_title'], 'category_id': b["category_id"], 'número de días': mx}
+    return result
 
+    #return 
 def ReqCuatro(catalog, tag, country, size):
     videitos = mp.get(catalog["videos-pais"], country)
     videillos = me.getValue(videitos)["videos"]

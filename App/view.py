@@ -23,6 +23,7 @@
 import config as cf
 import sys
 import controller
+from pprint import pprint
 from DISClib.ADT import list as lt
 assert cf
 from DISClib.ADT import map as mp
@@ -109,6 +110,7 @@ while True:
     elif int(inputs[0]) == 4:
         print('Encontrar videos tendencias por categoría')
         category = input("Ingrese la categoria de la cual quiera saber el video que más fue tendencia: ")
+        #print(controller.reqTres(catalog,category))
         print(controller.reqTres(catalog,category))
 
 
