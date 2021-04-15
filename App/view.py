@@ -123,7 +123,7 @@ while True:
         if result == 0:
             print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")
         else:
-            print(result)
+            pass
 
     elif int(inputs[0]) == 6:
         print('Buscar los videos con mas likes de una categoría')
