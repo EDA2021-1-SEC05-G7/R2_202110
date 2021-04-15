@@ -268,46 +268,27 @@ def ReqTres(catalog, name):
 def ReqCuatro(catalog, tag, country, size):
     videitos = mp.get(catalog["videos-pais"], country)
     videillos = me.getValue(videitos)["videos"]
-    """videillos: lista con videos filtrados del pais"""
-    ordenation = sortVideos(videillos,lt.size(videillos),cmpVideosByLikes)
     elqueitera = it.newIterator(videillos)
     tagslist = lt.newList()
-    contiene = 0
-    if contiene < size:
-        contador = False
-        while it.hasNext(elqueitera) and not contador:
-                fuego = it.next(elqueitera)
-                etiquetas = fuego["tags"].split("|")
-                pos = 0
-                while pos <= (len(etiquetas)-1) and not contador:
-                    if tag.lower() in etiquetas[pos].lower():
-                        dictiquetas = mp.newMap()
-                        mp.put(dictiquetas, "title",fuego['title'])
-                        mp.put(dictiquetas, "channel_title",fuego['channel_title'])
-                        mp.put(dictiquetas, "publish_time",fuego['publish_time'])
-                        mp.put(dictiquetas, "views",fuego['views'])
-                        mp.put(dictiquetas, "likes",fuego['likes'])
-                        mp.put(dictiquetas, "dislikes",fuego['dislikes'])
-                        mp.put(dictiquetas, "tags",fuego['tags'])
-                        lt.addLast(tagslist, dictiquetas)
-                        if lt.size(tagslist) == size:
-                            contador = True  
-                    pos += 1
+    while it.hasNext(elqueitera):
+        fuego = it.next(elqueitera)
+        etiquetas = fuego["tags"].split("|")
+        for j in etiquetas:
+            if tag.lower() in j.lower():
+                dictiquetas = {'title': fuego['title'],
+                "channel_title": fuego['channel_title'],
+                "publish_time": fuego["publish_time"],
+                'views': fuego['views'],
+                "likes": fuego['likes'], 
+                "dislikes": fuego['dislikes'],
+                "tags": fuego['tags']}
+                lt.addLast(tagslist, dictiquetas)
 
     if size > lt.size(tagslist):
         ordenation = 0
     else:
-        relqueitera = it.newIterator(tagslist)
-        while it.hasNext(relqueitera):
-                fuego = it.next(relqueitera)
-                print(fuego)
-        return None
-
-
-
-
-
-
+        ordenation = sortVideos(tagslist,size,cmpVideosByLikes)
+    return ordenation
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
