@@ -125,12 +125,12 @@ while True:
         country = input("Ingrese el pais del cual  quiera conocer los videos con mas likes: ")
         tag = input("Ingrese el tag del cual quiera saber los videos: ")
         size = int(input("Ingrese la cantidad de videos que quiera conocer: "))
-        result = controller.ReqCuatro(catalog,tag,country,size)
+        #result = controller.ReqCuatro(catalog,tag,country,size)
         (a,b) = controller.ReqCuatro(catalog,tag,country,size)
-        if result == 0:
-            print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")
-        else:
-            print("time: ", a, "memory: ", b)
+        """if result == 0:
+            print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")"""
+        print("impresion")
+        print("time: ", a, "memory: ", b)
 
 
     elif int(inputs[0]) == 6:
