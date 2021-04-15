@@ -97,21 +97,27 @@ while True:
         size = int(input("¿De que tamaño quiere la lista?: "))
         name = input("¿De que categoría desea saber los videos?: ")
         country = input("¿De que pais desea saber los videos?: ")
-        resul = controller.reqUno(catalog,name,size,country)
-        print(resul)
+        #resul = controller.reqUno(catalog,name,size,country)
+        (a,b) = controller.reqUno(catalog,name,size,country)
+        print("time: ", a, "memory: ", b)
+        #print(resul)
         
             
     elif int(inputs[0]) == 3:
         print ("Encontrar video tendencia por país")
         country = input("Ingrese el nombre del país del cual quiere saber el video que más fue tendencia: ")
-        print(controller.reqDos(catalog, country))
+        #result = controller.reqDos(catalog, country)
+        #print(result)
+        (a,b) = controller.reqDos(catalog, country)
+        print("time: ", a, "memory: ", b)
         
 
     elif int(inputs[0]) == 4:
         print('Encontrar videos tendencias por categoría')
         category = input("Ingrese la categoria de la cual quiera saber el video que más fue tendencia: ")
         #print(controller.reqTres(catalog,category))
-        print(controller.reqTres(catalog,category))
+        (a,b) = controller.reqTres(catalog,category)
+        print("time: ", a, "memory: ", b)
 
 
     elif int(inputs[0]) == 5:
@@ -120,15 +126,18 @@ while True:
         tag = input("Ingrese el tag del cual quiera saber los videos: ")
         size = int(input("Ingrese la cantidad de videos que quiera conocer: "))
         result = controller.ReqCuatro(catalog,tag,country,size)
+        (a,b) = controller.ReqCuatro(catalog,tag,country,size)
         if result == 0:
             print("El numero de muestra seleccionado, excede el tamaño de la cantidad total de elementos que hay")
         else:
-            pass
+            print("time: ", a, "memory: ", b)
+
 
     elif int(inputs[0]) == 6:
         print('Buscar los videos con mas likes de una categoría')
         name = input("Escriba el nombre de la categoría de la cual quiere conocer los videos: ")
         size = int(input("Escriba cuantos videos quiere conocer: "))
+        
         print(controller.reqLab(catalog, name, size))
         
     

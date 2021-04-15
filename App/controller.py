@@ -68,7 +68,7 @@ def loadData(catalog):
 def loadVideos(catalog):
 
     # Videos:
-    videosfile = cf.data_dir + 'videos-5pct.csv'
+    videosfile = cf.data_dir + 'videos-large.csv'
     input_file = csv.DictReader(open(videosfile, encoding='utf-8'))
     for video in input_file:
         model.addVideo(catalog, video)
@@ -113,7 +113,7 @@ def reqUno(catalog, name, size, country):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory, req
+    tupla = delta_time, delta_memory
 
     return tupla
 
@@ -135,7 +135,7 @@ def reqDos(catalog, country):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory, req
+    tupla = delta_time, delta_memory
 
     return tupla
 
@@ -158,7 +158,7 @@ def reqTres(catalog,name):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory, req
+    tupla = delta_time, delta_memory
 
     return tupla
 
@@ -181,7 +181,7 @@ def ReqCuatro(catalog, tag, country, size):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory, req
+    tupla = delta_time, delta_memory
 
     return tupla
     
