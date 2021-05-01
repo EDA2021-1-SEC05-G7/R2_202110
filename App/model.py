@@ -269,26 +269,30 @@ def ReqCuatro(catalog, tag, country, size):
     videitos = mp.get(catalog["videos-pais"], country)
     videillos = me.getValue(videitos)["videos"]
     elqueitera = it.newIterator(videillos)
-    tagslist = lt.newList()
+    tagslist = lt.newList(datastructure="ARRAY_LIST")
     while it.hasNext(elqueitera):
         fuego = it.next(elqueitera)
         etiquetas = fuego["tags"].split("|")
         for j in etiquetas:
             if tag.lower() in j.lower():
-                dictiquetas = {'title': fuego['title'],
-                "channel_title": fuego['channel_title'],
-                "publish_time": fuego["publish_time"],
-                'views': fuego['views'],
-                "likes": fuego['likes'], 
-                "dislikes": fuego['dislikes'],
-                "tags": fuego['tags']}
-                lt.addLast(tagslist, dictiquetas)
+                """dictiquetas = mp.newMap()
+                mp.put(dictiquetas, "title",fuego['title'])
+                mp.put(dictiquetas, "channel_title",fuego['channel_title'])
+                mp.put(dictiquetas, "publish_time",fuego['publish_time'])
+                mp.put(dictiquetas, "views",fuego['views'])
+                mp.put(dictiquetas, "likes",fuego['likes'])
+                mp.put(dictiquetas, "dislikes",fuego['dislikes'])
+                mp.put(dictiquetas, "tags",fuego['tags'])"""
+                lt.addLast(tagslist, fuego)
 
     if size > lt.size(tagslist):
         ordenation = 0
     else:
         ordenation = sortVideos(tagslist,size,cmpVideosByLikes)
     return ordenation
+
+
+
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -305,18 +309,8 @@ def cmpVideosByLikes(video1,video2):
     return (float(video1['likes']) > float(video2['likes']))
 
 
-
 def cmpVideosByViews(video1, video2): 
     return (float(video1['views']) > float(video2['views']))
-
-def compareMapLikes(id, tag):
-    tagentry = me.getKey(tag)
-    if (id == tagentry):
-        return 0
-    elif (id > tagentry):
-        return 1
-    else:
-        return 0
 
 # Funciones de ordenamiento
 

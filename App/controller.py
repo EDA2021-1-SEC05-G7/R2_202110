@@ -113,8 +113,8 @@ def reqUno(catalog, name, size, country):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory
-
+    #tupla = delta_time, delta_memory
+    tupla = req
     return tupla
 
 def reqDos(catalog, country):
@@ -135,7 +135,8 @@ def reqDos(catalog, country):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory
+    #tupla = delta_time, delta_memory
+    tupla = req
 
     return tupla
 
@@ -158,7 +159,8 @@ def reqTres(catalog,name):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory
+    #tupla = delta_time, delta_memory
+    tupla = req
 
     return tupla
 
@@ -181,7 +183,8 @@ def ReqCuatro(catalog, tag, country, size):
     delta_time = stop_time - start_time
     delta_memory = deltaMemory(start_memory, stop_memory)
     
-    tupla = delta_time, delta_memory
+    #tupla = delta_time, delta_memory
+    tupla = req
 
     return tupla
     
